@@ -29,11 +29,20 @@ DEBUG = config('DEBUG', default=True, cast=bool)
 # Allowed hosts - acepta Vercel, Render.com, localhost y 127.0.0.1
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1,.onrender.com,.vercel.app').split(',')
 
-# CSRF y seguridad para Vercel
-CSRF_TRUSTED_ORIGINS = [
-    'https://*.vercel.app',
-    'https://*.onrender.com',
-]
+# CSRF y seguridad para producción
+CSRF_TRUSTED_ORIGINS = config(
+    'CSRF_TRUSTED_ORIGINS',
+    default='https://*.vercel.app,https://*.onrender.com'
+).split(',')
+
+# Seguridad adicional para producción
+if not DEBUG:
+    SECURE_SSL_REDIRECT = False  # Render maneja SSL
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    X_FRAME_OPTIONS = 'DENY'
 
 
 # Application definition
@@ -97,22 +106,50 @@ def ipv4_getaddrinfo(host, port, family=0, type=0, proto=0, flags=0):
 
 socket.getaddrinfo = ipv4_getaddrinfo
 
-# Configuración para Supabase (PostgreSQL)
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME', default='postgres'),
-        'USER': config('DB_USER', default='postgres'),
-        'PASSWORD': config('DB_PASSWORD', default=''),
-        'HOST': config('DB_HOST', default='localhost'),
-        'PORT': config('DB_PORT', default='5432'),
-        'OPTIONS': {
-            'sslmode': 'require',
-            'options': '-c search_path=public'
-        },
-        'CONN_MAX_AGE': 600,
+# Configuración para Supabase (PostgreSQL) o SQLite para desarrollo local
+try:
+    import dj_database_url
+except ImportError:
+    dj_database_url = None
+
+# Intentar usar DATABASE_URL si está disponible (para Render/Supabase)
+DATABASE_URL = config('DATABASE_URL', default='')
+
+if DATABASE_URL and dj_database_url:
+    # Usar DATABASE_URL (para producción en Render/Supabase)
+    DATABASES = {
+        'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600)
     }
-}
+    # Asegurar que use SSL
+    DATABASES['default']['OPTIONS'] = {
+        'sslmode': 'require',
+        'options': '-c search_path=public'
+    }
+elif config('DB_ENGINE', default='') == 'postgresql' or config('DB_HOST', default=''):
+    # Usar configuración individual de PostgreSQL/Supabase
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': config('DB_NAME', default='postgres'),
+            'USER': config('DB_USER', default='postgres'),
+            'PASSWORD': config('DB_PASSWORD', default=''),
+            'HOST': config('DB_HOST', default='localhost'),
+            'PORT': config('DB_PORT', default='5432'),
+            'OPTIONS': {
+                'sslmode': 'require',
+                'options': '-c search_path=public'
+            },
+            'CONN_MAX_AGE': 600,
+        }
+    }
+else:
+    # Usar SQLite para desarrollo local
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 # Cliente de Supabase (opcional, para usar Supabase Storage, Auth, etc.)
 SUPABASE_URL = config('SUPABASE_URL', default='')
@@ -155,12 +192,18 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
+
+# STATICFILES_DIRS solo si existe el directorio
+import os
+static_dir = BASE_DIR / "static"
+STATICFILES_DIRS = [static_dir] if static_dir.exists() else []
 
 # WhiteNoise configuration para comprimir y cachear archivos estáticos
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# En producción usa CompressedManifestStaticFilesStorage, en desarrollo WhiteNoise
+if DEBUG:
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+else:
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
