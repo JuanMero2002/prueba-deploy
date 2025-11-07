@@ -9,7 +9,7 @@ print("\n" + "="*70)
 print("VERIFICACIÓN DE CONFIGURACIÓN: EMPRESAS Y FACULTADES")
 print("="*70)
 
-# Verificar empresas
+# Verificar empresass
 print("\n📊 EMPRESAS:")
 print("-" * 70)
 empresas = Empresa.objects.all()
