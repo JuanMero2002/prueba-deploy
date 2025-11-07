@@ -16,7 +16,7 @@ services:
         value: "False"
       - key: ALLOWED_HOSTS
         value: ".onrender.com,localhost"
-      # IMPORTANT: do NOT store secrets in the repo. Set these in Render's Environment
+      # IMPORTANT: do NOT store secretss in the repo. Set these in Render's Environment
       # dashboard (Environment -> Add Environment Variable) or through the Render UI
       # before deploying. Example placeholders below:
       - key: DATABASE_URL
