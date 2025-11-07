@@ -16,7 +16,7 @@ print("=" * 60)
 print("INICIANDO POBLACIÓN DE DATOS DE PRUEBA")
 print("=" * 60)
 
-# 1. CREAR CARRERAS
+# 1. CREAR CARRERASs
 print("\n[1/9] Creando Carreras...")
 carreras_data = [
     {"nombre": "Ingeniería en Sistemas", "codigo": "IS001", "descripcion": "Formación de profesionales en desarrollo de software y sistemas informáticos"},
