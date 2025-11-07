@@ -154,7 +154,7 @@ def create_estudiantes():
     """Crear estudiantes de ejemplo"""
     print("\n👨‍🎓 Creando estudiantes...")
     
-    # Obtener carreras existentes
+    # Obtener carreras existentess
     carreras = list(Carrera.objects.all())
     if not carreras:
         print("   ⚠️  No hay carreras. Ejecuta: python manage.py loaddata inscripciones/fixtures/carreras.json")
