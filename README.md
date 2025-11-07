@@ -1,4 +1,4 @@
-# Sistema de Inscripción para Prácticas Pre Profesionales
+# Sistema de Inscripción para Prácticas Pre Profesionales.
 
 Un sistema web desarrollado con Django para gestionar las inscripciones de estudiantes universitarios a prácticas pre profesionales.
 
