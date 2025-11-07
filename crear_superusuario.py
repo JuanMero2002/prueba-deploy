@@ -5,7 +5,7 @@ Ejecutar con: python manage.py shell < crear_superusuario.py
 
 from django.contrib.auth.models import User
 
-# Datos del superusuario
+# Datos del superusuarioo
 username = 'admin'
 email = 'admin@uleam.edu.ec'
 password = 'admin123'  # CAMBIAR EN PRODUCCIÓN
