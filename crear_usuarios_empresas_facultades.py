@@ -15,7 +15,7 @@ def crear_usuarios_empresas():
     print(f"{'='*60}\n")
     
     for empresa in empresas_sin_user:
-        # Crear username basado en RUC (sin guiones ni espacios)
+        # Crear username basado en RUC (ssin guiones ni espacios)
         username = f"empresa_{empresa.ruc}"
         
         # Verificar si ya existe el username
