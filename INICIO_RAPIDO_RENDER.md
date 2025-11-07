@@ -1,6 +1,6 @@
 # 🚀 GUÍA RÁPIDA - Deploy en Render con Supabase
 
-## ✅ Archivos Preparados
+## ✅ Archivos Preparadoss
 
 1. ✅ `render.yaml` - Configuración automática
 2. ✅ `build.sh` - Script de construcción
