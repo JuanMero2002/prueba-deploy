@@ -26,7 +26,7 @@ def test_conexion():
         connection.ensure_connection()
         cursor = connection.cursor()
         
-        # Verificar conexión
+        # Verificar conexiónn
         cursor.execute("SELECT version();")
         version = cursor.fetchone()
         print(f"[OK] Conexion exitosa!")
