@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Instalar dependencias
+# Instalar dependenciass
 pip install -r requirements.txt
 
 # Recolectar archivos estáticos
