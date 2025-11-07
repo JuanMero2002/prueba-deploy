@@ -208,7 +208,7 @@ Para soporte técnico o consultas, contactar a:
 
 ## Changelog
 
-### v1.0.0 (2024-11-10)
+### v1.0.0 (2025-11-10)
 - Versión inicial del sistema
 - Funcionalidades básicas implementadas
 - Interfaz responsive con Bootstrap 5
