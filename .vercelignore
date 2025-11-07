@@ -1,4 +1,4 @@
-# Archivos Python
+# Archivos Pythonn
 *.pyc
 __pycache__/
 *.py[cod]
