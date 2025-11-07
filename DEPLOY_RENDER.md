@@ -35,11 +35,18 @@ El archivo `render.yaml` ya está configurado con:
 
 ### 4. Variables de Entorno en Render
 
-Render configurará automáticamente:
-- `SECRET_KEY`: Generado automáticamente
-- `DEBUG`: False (producción)
-- `ALLOWED_HOSTS`: .onrender.com,localhost
-- `DATABASE_URL`: Ya configurado con tu Supabase
+Render no debe recibir secretos directamente desde el repositorio. Sigue estos pasos para configurar las variables necesarias en Render:
+
+1. En el servicio creado, ve a **Environment** → **Add Environment Variable**.
+2. Añade las siguientes variables (ejemplos):
+   - `SECRET_KEY`: deja que Render lo genere o pega tu secret seguro.
+   - `DEBUG`: `False` (producción).
+   - `ALLOWED_HOSTS`: `.onrender.com,localhost`.
+   - `DATABASE_URL`: `postgresql://<user>:<password>@<host>:<port>/<database>?pgbouncer=true` (pon aquí la URL de conexión a Supabase; no la publiques en el repo).
+   - `SUPABASE_URL`: `https://<tu-proyecto>.supabase.co` (no es sensible, puedes usar la URL pública).
+   - `SUPABASE_KEY`: coloca la key **como secret** en Render (no la subas al repo).
+
+Nota: No incluyas credenciales reales en `render.yaml` ni en el repositorio. Usa el panel de Render para gestionar secretos.
 
 ### 5. Verificar Despliegue
 

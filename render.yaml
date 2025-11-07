@@ -16,10 +16,13 @@ services:
         value: "False"
       - key: ALLOWED_HOSTS
         value: ".onrender.com,localhost"
+      # IMPORTANT: do NOT store secrets in the repo. Set these in Render's Environment
+      # dashboard (Environment -> Add Environment Variable) or through the Render UI
+      # before deploying. Example placeholders below:
       - key: DATABASE_URL
-        value: postgresql://postgres.ulnphtjyndxsebosbdcp:Juanmero2002@aws-1-us-east-1.pooler.supabase.com:6543/postgres?pgbouncer=true
+        value: postgresql://<user>:<password>@<host>:<port>/<database>?pgbouncer=true
       - key: SUPABASE_URL
-        sync: false
+        value: https://ulnphtjyndxsebosbdcp.supabase.co
       - key: SUPABASE_KEY
         sync: false
     autoDeploy: true
