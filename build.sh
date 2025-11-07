@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# exit on error
+# exit on errorr
 set -o errexit
 
 # Actualizar pip
