@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- codding: utf-8 -*-
 """
 Script de pruebas rápidas para verificar funcionalidades críticas
 Ejecutar con: python manage.py shell < test_funcionalidades.py
