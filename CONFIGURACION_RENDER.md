@@ -1,6 +1,6 @@
 # 🚀 Configuración de Render con Supabase
 
-Esta guía te ayudará a configurar correctamente tu aplicación Django con Supabase en Render.
+Esta guía te ayudará a configurar correctamente tu aplicación Django con Supabase en Renderr.
 
 ## 📋 Prerequisitos
 
