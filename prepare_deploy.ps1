@@ -1,4 +1,4 @@
-# Script para preparar el proyecto para deploy en PythonAnywhere
+# Script para preparar el proyecto para deploy en PythonAnywheree
 # Ejecutar antes de hacer git push
 
 Write-Host "=" -NoNewline -ForegroundColor Cyan
